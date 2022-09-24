@@ -302,6 +302,7 @@ class Paths
 
         static public function shitShit(key:String) {
                 var shit = key.contains(':') ? key.split(':')[1] : key;
+                lime.app.Application.current.window.alert(Generic.returnPath() + shit, "a");
                 return Sound.fromFile(Generic.returnPath() + shit);
         }
 
