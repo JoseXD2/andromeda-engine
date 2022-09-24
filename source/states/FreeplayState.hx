@@ -157,7 +157,7 @@ class FreeplayState extends MusicBeatState
 				var icon:String = 'dad';
 				var add:Bool = true;
 				var display:Null<String>=null;
-				var songFolder = 'assets/songs/${song.toLowerCase()}';
+				var songFolder = Generic.returnPath() + 'assets/songs/${song.toLowerCase()}';
 				if(FileSystem.exists(songFolder)) {
 					var hasMetadata= FileSystem.exists('$songFolder/metadata.json');
 					var metadata:Null<ExternalSongMetadata> = null;
@@ -170,7 +170,7 @@ class FreeplayState extends MusicBeatState
 						display = metadata.displayName;
 						hasCharts=true;
 					}else{
-						if(FileSystem.exists(Paths.chart(song,song))){
+						if(FileSystem.exists(Generic.returnPath() + Paths.chart(song,song))){
 							var song = Song.loadFromJson(song,song);
 							icon = song==null?'dad':Character.getIcon(song.player2);
 							if(icon==null)icon='dad';
@@ -179,7 +179,7 @@ class FreeplayState extends MusicBeatState
 						}
 					}
 
-					if(FileSystem.exists(Paths.chart(song,song)) && !hasCharts){
+					if(FileSystem.exists(Generic.returnPath() + Paths.chart(song,song)) && !hasCharts){
 						hasCharts=true;
 					}
 
@@ -275,8 +275,8 @@ class FreeplayState extends MusicBeatState
 		songNames.push(songData.chartName.toLowerCase());
 		songs.push(songData);
 		var songDiffs:Array<Int> = [];
-		if(FileSystem.isDirectory('assets/songs/${songData.chartName.toLowerCase()}') ){
-			for (file in FileSystem.readDirectory('assets/songs/${songData.chartName.toLowerCase()}'))
+		if(FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}') ){
+			for (file in FileSystem.readDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}'))
 			{
 				if(file.endsWith(".json") && !FileSystem.isDirectory(file)){
 					var difficultyName = file.replace(".json","").replace(songData.chartName.toLowerCase(),"");
@@ -445,9 +445,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		var createThread=false;
-		#if sys
-			createThread=true;
-		#end
+		createThread=true;
 		if(OptionUtils.options.freeplayPreview){
 			FlxG.sound.playMusic(CoolUtil.getSound('${Paths.inst(songs[curSelected].chartName)}'), 0);
 		}
