@@ -74,7 +74,7 @@ class JudgeCustomizationState extends MusicBeatState {
     title.screenCenter(X);
     add(title);
 
-    var instructions:FlxText = new FlxText(0, 60, 0, "Click and drag the judgement around to move it\nPress R to place the judgement in its default position\nPress C to show the combo\nPress Enter to exit and save\nPress Escape to exit without saving", 24);
+    var instructions:FlxText = new FlxText(0, 60, 0, "Click and drag the judgement around to move it\nPress Y to place the judgement in its default position\nPress X to show the combo\nPress A to exit and save\nPress B to exit without saving", 24);
     instructions.scrollFactor.set(0,0);
     instructions.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     instructions.screenCenter(X);
