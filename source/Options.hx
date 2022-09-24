@@ -120,6 +120,8 @@ class Options
 	public var judgeY:Float = 0;
 	public var holdsBehindReceptors:Bool = false;
 	public var fastTransitions:Bool = false;
+        public var hitboxOpacity:Float = 0.3;
+        public var gradientHitboxes:Bool = true;
 
 	// performance
 	public var fps:Int = 120;
