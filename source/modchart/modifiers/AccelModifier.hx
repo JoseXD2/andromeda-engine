@@ -19,9 +19,8 @@ class AccelModifier extends Modifier { // this'll be boost in ModManager
     var effectHeight = 500;
 
     var yAdjust:Float = 0;
-    lime.app.Application.current.window.alert("the shit\ndata: " + data + "\nplayer: " + player + "\ngetMod('reverse'): " + Std.string(Type.getClass(getMod("reverse"))), "a");
     var reversePercent = getMod("reverse").getScrollReversePerc(data,player);
-    lime.app.Application.current.window.alert("ok, it worked, wtf", "a");
+
     var mult = CoolUtil.scale(reversePercent,0,1,1,-1);
 
     if(brake!=0){
