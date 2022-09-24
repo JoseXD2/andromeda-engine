@@ -242,6 +242,19 @@ class FlxVirtualPad extends FlxSpriteGroup
 				actions.add(add(buttonV = createButton(FlxG.width - 44 * 3, FlxG.height - 125 * 3, 44 * 3, 45 * 3, "v")));
 				actions.add(add(buttonG = createButton(FlxG.width - 128 * 3, FlxG.height - 85 * 3, 44 * 3, 45 * 3, "g")));
 				actions.add(add(buttonS = createButton(FlxG.width - 86 * 3, FlxG.height - 125 * 3, 44 * 3, 45 * 3, "s")));
+                        case A_B_X_Y_C_Z_V_G_S_F_E_D: // ultimate gigachad vpad for charting
+                                actions.add(add(buttonC = createButton(FlxG.width - 128 * 2, FlxG.height - 45 * 2, 44 * 2, 45 * 2, "c")));
+				actions.add(add(buttonY = createButton(FlxG.width - 86 * 2, FlxG.height - 85 * 2, 44 * 2, 45 * 2, "y")));
+				actions.add(add(buttonX = createButton(FlxG.width - 44 * 2, FlxG.height - 85 * 2, 44 * 2, 45 * 2, "x")));
+				actions.add(add(buttonB = createButton(FlxG.width - 86 * 2, FlxG.height - 45 * 2, 44 * 2, 45 * 2, "b")));
+				actions.add(add(buttonA = createButton(FlxG.width - 44 * 2, FlxG.height - 45 * 2, 44 * 2, 45 * 2, "a")));
+                                actions.add(add(buttonZ = createButton(FlxG.width - 128 * 2, FlxG.height - 85 * 2, 44 * 2, 45 * 2, "z")));
+				actions.add(add(buttonV = createButton(FlxG.width - 86 * 2, FlxG.height - 125 * 2, 44 * 2, 45 * 2, "v")));
+				actions.add(add(buttonG = createButton(FlxG.width - 44 * 2, FlxG.height - 125 * 2, 44 * 2, 45 * 2, "g")));
+				actions.add(add(buttonS = createButton(FlxG.width - 128 * 2, FlxG.height - 125 * 2, 44 * 2, 45 * 2, "s")));
+                                actions.add(add(buttonF = createButton(FlxG.width - 86 * 2, FlxG.height - 176 * 2, 44 * 2, 45 * 2, "v")));
+				actions.add(add(buttonE = createButton(FlxG.width - 44 * 2, FlxG.height - 176 * 2, 44 * 2, 45 * 2, "g")));
+				actions.add(add(buttonD = createButton(FlxG.width - 128 * 2, FlxG.height - 176 * 2, 44 * 2, 45 * 2, "s")));
 			case NONE: // do nothing
 		}
 	}
@@ -376,4 +389,5 @@ enum FlxActionMode
 	A_B_X_Y;
 	A_B_X_Y_C;
         B_X_Y_C_Z_V_G_S;
+        A_B_X_Y_C_Z_V_G_S_F_E_D;
 }
