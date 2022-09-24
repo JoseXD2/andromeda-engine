@@ -1175,7 +1175,7 @@ class ChartingState extends MusicBeatState
 					&& touch.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps))
 				{
 					FlxG.log.add('added note');
-					addNote(_virtualpad.buttonC.justPresse);
+					addNote(_virtualpad.buttonC.justPressed);
 				}
 
 				if (touch.x > eventRow.x
