@@ -60,7 +60,7 @@ class SoundOffsetState extends MusicBeatState
     add(offsetTxt);
 
 
-    var instructions:FlxText = new FlxText(0, 125, 0, "Press the spacebar to pause/play the beat\nPress enter in time with the beat to get an approximate offset\nPress R to reset\nPress left and right to adjust the offset manually. Hold shift for precision.\nPress ESC to go back and save the current offset", 24);
+    var instructions:FlxText = new FlxText(0, 125, 0, "Press the X to pause/play the beat\nPress A in time with the beat to get an approximate offset\nPress Y to reset\nPress left and right to adjust the offset manually.\nPress B to go back and save the current offset", 24);
     instructions.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     instructions.screenCenter(X);
     add(instructions);
@@ -72,7 +72,7 @@ class SoundOffsetState extends MusicBeatState
     add(metronome);
 
     #if android
-    addVirtualPad(FULL, A_B_X_Y);
+    addVirtualPad(LEFT_RIGHT, A_B_X_Y);
     #end
   }
 
