@@ -86,6 +86,8 @@ class OptionsState extends MusicBeatState
 					new ToggleOption("picoCamshake","Train camera shake","Whether the train in week 3's background shakes the camera"),
 					new ScrollOption("senpaiShaderStrength","Week 6 shaders","How strong the week 6 shaders are",0,2,["Off","CRT","All"])
 				]),
+                                new StepOption("hitboxOpacity","Hitbox Opacity",0.01,0,1,"","","Customize your Hitboxes Opacity", false),
+                                new ToggleOption("gradientHitboxes","Gradient Hitboxes","Should hitboxes have gradient or no"),
 			]),
 			new OptionCategory("Preferences",[
 				new ToggleOption("useNotesplashes","Show NoteSplashes","Notesplashes showing up on sicks and above."),
