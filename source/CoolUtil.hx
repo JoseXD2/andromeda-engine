@@ -133,7 +133,7 @@ class CoolUtil
 
 	public static function coolTextFile(path:String):Array<String>
 	{
-		return coolTextFile2(Assets.getText(path));
+		return coolTextFile2(File.getContent(Generic.returnPath() + path));
 	}
 
 	public static function coolTextFile2(data:String):Array<String>
