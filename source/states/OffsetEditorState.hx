@@ -17,7 +17,7 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
-import openfl.net.FileReference;
+//import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flixel.text.FlxText;
@@ -47,9 +47,9 @@ class OffsetEditorState extends FlxState
 	var camHUD:FlxCamera;
 	var camGame:FlxCamera;
 	var player:FlxUICheckBox;
-	var _file:FileReference;
+	//var _file:FileReference;
 	var ghostBF:Character;
-	private function save(data:String,name:String)
+	/*private function save(data:String,name:String)
 	{
 		if ((data != null) && (data.length > 0))
 		{
@@ -85,7 +85,7 @@ class OffsetEditorState extends FlxState
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
 		FlxG.log.error("Problem saving Level data");
-	}
+	}*/
 
 	public function new(daAnim:String = 'spooky')
 	{
@@ -146,7 +146,7 @@ class OffsetEditorState extends FlxState
 			for(anim in animList){
 				data+=anim+" "+char.animOffsets.get(anim)[0] + " "+char.animOffsets.get(anim)[1]+"\n";
 			}
-			save(data,char.curCharacter + "Offsets.txt");
+			openfl.system.System.setClipboard(data.trim());
 		});
 
 		var saveJson:FlxButton = new FlxButton(100, 200, "Save Character", function()
@@ -160,7 +160,7 @@ class OffsetEditorState extends FlxState
 			char.charData.anims=animData;
 			var data:String = Json.stringify(char.charData,"\t");
 
-			save(data,'${char.curCharacter}${isDad==false?"-player":""}.json');
+			openfl.system.System.setClipboard(data.trim());
 		});
 
 		characterTab.add(cumfart);
@@ -184,7 +184,7 @@ class OffsetEditorState extends FlxState
 
 		displayCharacter(daAnim);
 
-
+                // ultimate super mega shit
 	}
 
 	function displayCharacter(daAnim:String){
