@@ -281,8 +281,10 @@ class FreeplayState extends MusicBeatState
 		if(FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}') ){
 			for (file in FileSystem.readDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}'))
 			{
-                                lime.app.Application.current.window.alert(file, 'a'); // JUST FUCKING TELL ME, DOES 'FILE' HAVE FULL PATH OR FILE NAME
-				if(file.endsWith(".json") && !FileSystem.isDirectory(file)){
+                                //lime.app.Application.current.window.alert(file, 'a'); // JUST FUCKING TELL ME, DOES 'FILE' HAVE FULL PATH OR FILE NAME
+                                // ok, now i know, that it returns array of file names
+				if(file.endsWith(".json") && !FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}')){
+                                        lime.app.Application.current.window.alert('the shit for' + Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}' + 'is: ' + FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}'), 'a');
 					var difficultyName = file.replace(".json","").replace(songData.chartName.toLowerCase(),"");
 					switch(difficultyName.toLowerCase()){
 						case '-easy':
