@@ -164,7 +164,9 @@ class OptionsState extends MusicBeatState
 		optionDesc.visible=false;
 		add(optionDesc);
 
-
+                #if android
+                addVirtualPad(FULL, A_B);
+                #end
 	}
 
 	function refresh(){
