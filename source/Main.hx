@@ -82,7 +82,12 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		addChild(new FlxGame(gameWidth, gameHeight, PermsState, zoom, framerate, framerate, skipSplash, startFullscreen));
+                var permsShit:FlxState = PermsState;
+                if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) {
+                        permsShit = initialState;
+                }
+
+		addChild(new FlxGame(gameWidth, gameHeight, permsShit, zoom, framerate, framerate, skipSplash, startFullscreen));
 
 		addChild(new ui.FPSMem(10, 3, 0xFFFFFF));
 	}
