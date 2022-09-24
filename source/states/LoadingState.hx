@@ -59,7 +59,7 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				checkLoadSong(getSongPath());
+				//checkLoadSong(getSongPath());
 				if (PlayState.SONG.needsVoices)
 					checkLoadSong(getVocalPath());
 				checkLibrary("shared");
@@ -147,10 +147,16 @@ class LoadingState extends MusicBeatState
 	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 	{
 		Cache.clear();
-		FlxG.switchState(getNextState(target, stopMusic));
+
+                Paths.setCurrentLevel(PlayState.songData.loadingPath);
+
+                if (stopMusic && FlxG.sound.music != null)
+			FlxG.sound.music.stop();
+
+		FlxG.switchState(target);
 	}
 
-	static function getNextState(target:FlxState, stopMusic = false):FlxState
+	/*static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
 		trace(PlayState.songData.loadingPath);
 		Paths.setCurrentLevel(PlayState.songData.loadingPath);
@@ -179,6 +185,7 @@ class LoadingState extends MusicBeatState
 		return Assets.getLibrary(library) != null;
 	}
 	#end
+        */
 
 	override function destroy()
 	{
