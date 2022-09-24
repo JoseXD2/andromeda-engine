@@ -7,6 +7,7 @@ import openfl.display.ShaderInput;
 import openfl.display.ShaderParameter;
 import openfl.display.ShaderParameterType;
 import openfl.utils.Assets;
+import sys.io.File; // (sirox) we should use File instead of Assets, cuz we don't use polymod
 
 using StringTools;
 
@@ -196,7 +197,7 @@ class FlxRuntimeShader extends FlxShader
 		if (fragmentSource != null)
 		{
 			trace('Loading fragment source from argument...');
-			glFragmentSource = processFragmentSource(Assets.getText(fragmentSource));
+			glFragmentSource = processFragmentSource(File.getContent(fragmentSource));
 		}
 		else
 		{
@@ -207,7 +208,7 @@ class FlxRuntimeShader extends FlxShader
 		if (vertexSource != null)
 		{
 			trace('Loading vertex source from argument...');
-			glVertexSource = processVertexSource(Assets.getText(vertexSource));
+			glVertexSource = processVertexSource(File.getContent(vertexSource));
 		}
 		else
 		{
