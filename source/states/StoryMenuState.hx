@@ -183,7 +183,9 @@ class StoryMenuState extends MusicBeatState
 
 		FlxG.stage.addEventListener(MouseEvent.MOUSE_WHEEL,scroll);
 
-
+                #if mobileC
+                addVirtualPad(FULL, A_B);
+                #end
 	}
 
 	override function update(elapsed:Float)
