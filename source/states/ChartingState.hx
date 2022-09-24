@@ -1265,7 +1265,7 @@ class ChartingState extends MusicBeatState
 		if (canInput)
 		{
 
-			if(FlxG.keys.justPressed.RIGHT){
+			if(_virtualpad.buttonRight.justPressed){
 				quantIdx+=1;
 				if(quantIdx>quantizations.length-1)
 					quantIdx = 0;
@@ -1273,7 +1273,7 @@ class ChartingState extends MusicBeatState
 				quantization = quantizations[quantIdx];
 			}
 
-			if(FlxG.keys.justPressed.LEFT){
+			if(_virtualpad.buttonLeft.justPressed){
 				quantIdx-=1;
 				if(quantIdx<0)
 					quantIdx = quantizations.length-1;
@@ -1281,31 +1281,31 @@ class ChartingState extends MusicBeatState
 				quantization = quantizations[quantIdx];
 			}
 
-				if (FlxG.keys.justPressed.ENTER)
-					startSong(FlxG.keys.pressed.SHIFT?FlxG.sound.music.time:0);
+				if (_virtualpad.buttonA.justPressed)
+					startSong(_virtualpad.buttonX.justPressed?FlxG.sound.music.time:0);
 
 
-				if(FlxG.keys.justPressed.ESCAPE)
+				if(FlxG.android.justReleased.BACK)
 					pause();
 
 
-				if(FlxG.keys.pressed.SHIFT){
+				if(_virtualpad.buttonX.justPressed){
 
 				}else{
-					if (FlxG.keys.justPressed.E)
+					if (_virtualpad.buttonY.justPressed)
 					{
 						changeNoteSustain(Conductor.stepCrochet);
 					}
-					if (FlxG.keys.justPressed.Q)
+					if (_virtualpad.buttonB.justPressed)
 					{
 						changeNoteSustain(-Conductor.stepCrochet);
 					}
 				}
 
 
-				if (FlxG.keys.justPressed.TAB)
+				if (_virtualpad.buttonZ.justPressed)
 				{
-					if (FlxG.keys.pressed.SHIFT)
+					if (_virtualpad.buttonX.justPressed)
 					{
 						UI_box.selected_tab -= 1;
 						if (UI_box.selected_tab < 0)
@@ -1320,9 +1320,9 @@ class ChartingState extends MusicBeatState
 				}
 
 			var shiftThing:Int = 1;
-			if (FlxG.keys.pressed.SHIFT)
+			if (_virtualpad.buttonX.justPressed)
 				shiftThing = 4;
-			if (FlxG.keys.justPressed.D){
+			if (_virtualpad.buttonV.justPressed){
 				for(i in 0...shiftThing){
 					if (_song.notes[curSection + i] == null)
 					{
@@ -1331,11 +1331,11 @@ class ChartingState extends MusicBeatState
 				}
 				changeSection(curSection + shiftThing);
 			}
-			if (FlxG.keys.justPressed.A)
+			if (_virtualpad.buttonG.justPressed)
 				changeSection(curSection - shiftThing);
 
 
-			if (FlxG.keys.justPressed.SPACE)
+			if (_virtualpad.buttonS.justPressed)
 			{
 				if (FlxG.sound.music.playing)
 				{
@@ -1351,9 +1351,9 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.R)
+			if (_virtualpad.buttonF.justPressed)
 			{
-				if (FlxG.keys.pressed.SHIFT)
+				if (_virtualpad.buttonX.justPressed)
 					resetSection(true);
 				else
 					resetSection();
@@ -1369,16 +1369,16 @@ class ChartingState extends MusicBeatState
 				vocals.time = FlxG.sound.music.time;
 			}
 
-			if (!FlxG.keys.pressed.SHIFT)
+			if (!_virtualpad.buttonX.justPressed)
 			{
-				if (FlxG.keys.pressed.W || FlxG.keys.pressed.S)
+				if (_virtualpad.buttonE.justPressed || _virtualpad.buttonD.justPressed)
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
 
 					var daTime:Float = 700 * FlxG.elapsed;
 
-					if (FlxG.keys.pressed.W)
+					if (_virtualpad.buttonE.justPressed)
 					{
 						FlxG.sound.music.time -= daTime;
 					}
@@ -1390,14 +1390,14 @@ class ChartingState extends MusicBeatState
 			}
 			else
 			{
-				if (FlxG.keys.justPressed.W || FlxG.keys.justPressed.S)
+				if (_virtualpad.buttonE.justPressed || _virtualpad.buttonD.justPressed)
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
 
 					var daTime:Float = Conductor.stepCrochet * 2;
 
-					if (FlxG.keys.justPressed.W)
+					if (_virtualpad.buttonE.justPressed)
 					{
 						FlxG.sound.music.time -= daTime;
 					}
@@ -1422,7 +1422,7 @@ class ChartingState extends MusicBeatState
 			var x = Math.floor(touch.x / GRID_SIZE) * GRID_SIZE;
 			var y = getYfromEvent(Conductor.beatToSeconds(Math.floor(beat / snap) * snap) - sectionStartTime());
 
-			if (FlxG.keys.pressed.SHIFT)
+			if (_virtualpad.buttonX.justPressed)
 				y = touch.y;
 
 			if(dummyEvent.y!=y || dummyEvent.x!=x){
@@ -1445,7 +1445,7 @@ class ChartingState extends MusicBeatState
 			var y = getYfromStrum(Conductor.beatToSeconds(Math.floor(beat / snap) * snap) - sectionStartTime());
 
 			dummyArrow.visible=true;
-			if (FlxG.keys.pressed.SHIFT)
+			if (_virtualpad.buttonX.justPressed)
 				y = touch.y;
 
 			if(dummyArrow.y!=y || dummyArrow.x!=x){
@@ -2175,7 +2175,7 @@ class ChartingState extends MusicBeatState
 
 		curSelectedNote = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
 		recentNote = curSelectedNote;
-		if(FlxG.keys.pressed.CONTROL)
+		if(_virtualpad.buttonC.justPressed)
 			_song.notes[curSection].sectionNotes.push([noteStrum, (noteData+4)%8, noteSus, type]);
 
 
