@@ -303,7 +303,6 @@ class Paths
         static public function shitShit(key:String):Sound {
                 var shit = key.contains(':') ? key.split(':')[1] : key;
                 var ultraShit = CoolUtil.getSound(Generic.returnPath() + shit);
-                lime.app.Application.current.window.alert(Std.string(ultraShit == null) + "\n" + Std.string(ultraShit), "a");
                 return ultraShit;
         }
 
