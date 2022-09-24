@@ -24,11 +24,11 @@ class HealthIcon extends FlxSprite
 		var image:Null<FlxGraphicAsset>=null;
 		if(FlxG.bitmap.get(path)!=null){
 			image = FlxG.bitmap.get(path);
-		}else if(FileSystem.exists(path + ".png")){
-			image = FlxG.bitmap.add(BitmapData.fromFile(path + ".png"),false,path);
-		}else if(FileSystem.exists("assets/characters/icons/face.png")){
+		}else if(FileSystem.exists(Generic.returnPath() + path + ".png")){
+			image = FlxG.bitmap.add(BitmapData.fromFile(Generic.returnPath() + path + ".png"),false,path);
+		}else if(FileSystem.exists(Generic.returnPath() + "assets/characters/icons/face.png")){
 			FlxG.log.warn('${char} is not a valid icon name. Using fallback');
-			image = FlxG.bitmap.add(BitmapData.fromFile("assets/characters/icons/face.png"),false,path);
+			image = FlxG.bitmap.add(BitmapData.fromFile(Generic.returnPath() + "assets/characters/icons/face.png"),false,path);
 
 		}else{
 
