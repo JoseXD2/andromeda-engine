@@ -27,6 +27,12 @@ class PauseSubState extends MusicBeatSubstate
 		#if ALLOW_SET_STARTPOS
 		"Set Start Position",
 		#end
+                #if !DISABLE_CHART_EDITOR
+                'Chart Editor',
+                #end
+                #if !DISABLE_CHART_EDITOR
+                'Character Editor',
+                #end
 		'Exit to menu'];
 	var curSelected:Int = 0;
 
@@ -95,6 +101,10 @@ class PauseSubState extends MusicBeatSubstate
 		changeSelection();
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
+                #if android
+                addVirtualPad(UP_DOWN, A);
+                #end
 	}
 
 	override function update(elapsed:Float)
@@ -104,9 +114,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
-		var accepted = controls.ACCEPT;
+		var upP = virtualpad.buttonUp.justPressed;
+		var downP = virtualpad.buttonDown.justPressed;
+		var accepted = virtualpad.buttonA.justPressed;
 
 		if (upP)
 		{
@@ -132,8 +142,10 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.resetState();
 				case "Set Start Position":
 					PlayState.startPos = Conductor.rawSongPos;
-				case "Exit to charter":
+				case "Chart Editor":
 					FlxG.switchState(new ChartingState());
+                                case "Character Editor":
+                                        FlxG.switchState(new CharacterEditorState(PlayState.SONG.player2,new PlayState()));
 				case "Exit to menu":
 
 					if(PlayState.isStoryMode)
