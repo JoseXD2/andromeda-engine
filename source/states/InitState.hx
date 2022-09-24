@@ -120,11 +120,7 @@ class InitState extends FlxUIState {
 
 
     var canCache=false;
-    #if sys
-      #if cpp // IDK IF YOU CAN DO "#IF SYS AND CPP" OR THIS'LL WORK I THINK
-        canCache=true;
-      #end
-    #end
+    canCache=true;
     if(canCache){
       if(!currentOptions.cacheCharacters && !currentOptions.cacheSongs && !currentOptions.cacheSounds  && !currentOptions.cachePreload)
         canCache=false;
