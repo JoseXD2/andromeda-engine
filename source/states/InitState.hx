@@ -7,7 +7,9 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import lime.app.Application;
-//import Discord.DiscordClient;
+#if desktop
+import Discord.DiscordClient;
+#end
 import flixel.FlxSprite;
 import Options;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
