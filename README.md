@@ -1,6 +1,6 @@
 # Original repository [here](https://github.com/nebulazorua/andromeda-engine)
 ---
-# Friday night funking Andromeda engine mobile port
+# Friday night funking Andromeda engine modified mobile port
 this engine has:
 - better input
 - customisable noteskins
@@ -9,4 +9,4 @@ this engine has:
 - many options
 - you can add character like in Psych engine (psych engine format work too)
 ---
-this engine ported by Sirox
+this engine ported and modified by Sirox
