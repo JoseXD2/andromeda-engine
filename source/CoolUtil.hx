@@ -70,7 +70,7 @@ class CoolUtil
 
 		var sound = Sound.fromFile(path);
 		cacheSound(path,sound);
-		return sound;
+		return Cache.soundCache.get(path);
 	}
 
 	inline public static function clamp(n:Float, l:Float, h:Float){
