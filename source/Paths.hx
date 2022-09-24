@@ -6,6 +6,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import sys.io.File;
 import flash.display.BitmapData;
+import flash.media.Sound;
 import Sys;
 import sys.FileSystem;
 import haxe.Json;
@@ -60,7 +61,7 @@ class Paths
 	public static function getDirs(library:String,?base='assets/images'){
 		var folders:Array<String>=[];
 		// TODO: openflassets shit maybe?
-		for(folder in FileSystem.readDirectory('${base}/${library}') ){
+		for(folder in FileSystem.readDirectory(Generic.returnPath() + '${base}/${library}') ){
 			if(!folder.contains(".") && FileSystem.isDirectory('${base}/${library}/${folder}')){
 				folders.push(folder);
 			}
@@ -77,10 +78,10 @@ class Paths
 		var path = 'assets/images/${library}/${skin}/metadata.json';
 		if(OpenFlAssets.exists(path)){
 			return Json.parse(OpenFlAssets.getText(path));
-		}else if(FileSystem.exists(path)){
+		}else if(FileSystem.exists(Generic.returnPath() + path)){
 			return Json.parse(File.getContent(path));
 		}
-		return Json.parse(File.getContent('assets/images/${library}/fallback/metadata.json'));
+		return Json.parse(File.getContent(Generic.returnPath() + 'assets/images/${library}/fallback/metadata.json'));
 	}
 
 	public static function noteSkinPath(key:String, ?library:String='skins', ?skin:String='default', modifier:String='base', noteType:String='default', ?useOpenFLAssetSystem:Bool=true):String
@@ -121,7 +122,7 @@ class Paths
 			}else{
 				while(idx<pathsNoNotetype.length){
 					path = pathsNoNotetype[idx];
-					if(FileSystem.exists(path))
+					if(FileSystem.exists(Generic.returnPath() + path))
 						break;
 
 					idx++;
@@ -138,7 +139,7 @@ class Paths
 			if(noteType!='' && noteType!='default'){
 				while(idx<pathsNotetype.length){
 					path = pathsNotetype[idx];
-					if(FileSystem.exists(path))
+					if(FileSystem.exists(Generic.returnPath() + path))
 						break;
 
 					idx++;
@@ -147,7 +148,7 @@ class Paths
 			}else{
 				while(idx<pathsNoNotetype.length){
 					path = pathsNoNotetype[idx];
-					if(FileSystem.exists(path))
+					if(FileSystem.exists(Generic.returnPath() + path))
 						break;
 
 					idx++;
@@ -174,9 +175,9 @@ class Paths
 			if(!doShit){
 				var pathPng = noteSkinPath('${key}.png',library,skin,modifier,noteType,useOpenFLAssetSystem);
 				var image:Null<BitmapData>=null;
-				if(FileSystem.exists(pathPng)){
+				if(FileSystem.exists(Generic.returnPath() + pathPng)){
 					doShit=true;
-					image = BitmapData.fromFile(pathPng);
+					image = BitmapData.fromFile(Generic.returnPath() + pathPng);
 					FlxG.bitmap.add(image,false,bitmapName);
 				}
 				if(image!=null)
@@ -198,7 +199,7 @@ class Paths
 			}
 		}else{
 			var path = noteSkinPath('${key}',library,skin,modifier,noteType,useOpenFLAssetSystem);
-			if(FileSystem.exists(path)){
+			if(FileSystem.exists(Generic.returnPath() + path)){
 				return Cache.getText(path);
 			}
 		}
@@ -226,9 +227,9 @@ class Paths
 				if(!FlxG.bitmap.checkCache(bitmapName)){
 					doShit=false;
 					var pathPng = noteSkinPath('${key}.png',library,skin,modifier,noteType,useOpenFLAssetSystem);
-					if(FileSystem.exists(pathPng)){
+					if(FileSystem.exists(Generic.returnPath() + pathPng)){
 						doShit=true;
-						FlxG.bitmap.add(BitmapData.fromFile(pathPng),false,bitmapName);
+						FlxG.bitmap.add(BitmapData.fromFile(Generic.returnPath() + pathPng),false,bitmapName);
 					}
 				}
 				if(doShit)
@@ -276,7 +277,7 @@ class Paths
 
 	static public function sound(key:String, ?library:String)
 	{
-		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		return shitShit(getPath('sounds/$key.$SOUND_EXT', SOUND, library));
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
@@ -286,31 +287,42 @@ class Paths
 
 	inline static public function music(key:String, ?library:String)
 	{
-		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		return shitShit(getPath('music/$key.$SOUND_EXT', MUSIC, library));
 	}
 
 	inline static public function voices(song:String)
 	{
-		return getPath('songs/${song.toLowerCase()}/Voices.$SOUND_EXT', MUSIC, null);
+		return shitShit(getPath('songs/${song.toLowerCase()}/Voices.$SOUND_EXT', MUSIC, null));
 	}
 
 	inline static public function inst(song:String)
 	{
-		return getPath('songs/${song.toLowerCase()}/Inst.$SOUND_EXT', MUSIC, null);
+		return shitShit(getPath('songs/${song.toLowerCase()}/Inst.$SOUND_EXT', MUSIC, null));
 	}
 
+        static public function shitShit(key:String) {
+                var shit = key.contains(':') ? key.split(':')[1] : key;
+                return Sound.fromFile(Generic.returnPath() + shit);
+        }
+
 	inline static public function lua(script:String,?library:String){
-			return getPath('data/$script.lua',TEXT,library);
+		return Generic.returnPath() + getPath('data/$script.lua',TEXT,library);
 	}
 
 	inline static public function modchart(song:String,?library:String){
-		return getPath('songs/$song/modchart.lua',TEXT,library);
+		return Generic.returnPath() + getPath('songs/$song/modchart.lua',TEXT,library);
 	}
 
 	inline static public function image(key:String, ?library:String)
 	{
-		return getPath('images/$key.png', IMAGE, library);
+		return shit(key, library);
 	}
+
+        static public function shit(key:String, ?library:String) {
+                var shit = getPath('images/$key.png', IMAGE, library);
+                var realShit = shit.contains(':') ? shit.split(':')[1] : shit;
+                return BitmapData.fromFile(Generic.returnPath() + realShit);
+        }
 
 	inline static public function font(key:String)
 	{
