@@ -80,7 +80,7 @@ class JudgeCustomizationState extends MusicBeatState {
     instructions.screenCenter(X);
     add(instructions);
 
-
+    addVirtualPad(NONE, A_B_X_Y);
   }
 
   var prevComboNums:Array<String> = [];
@@ -151,8 +151,8 @@ class JudgeCustomizationState extends MusicBeatState {
   }
 
   override function update(elapsed){
-    if(FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.ENTER){
-      if(FlxG.keys.justPressed.ENTER){
+    if(controls.BACK || controls.ACCEPT){
+      if(controls.ACCEPT){
         EngineData.options.judgeX = judgePlacementPos.x;
         EngineData.options.judgeY = judgePlacementPos.y;
         OptionUtils.saveOptions(OptionUtils.options);
@@ -160,14 +160,14 @@ class JudgeCustomizationState extends MusicBeatState {
       FlxG.switchState(new OptionsState());
     }
 
-    if(FlxG.keys.justPressed.R){
+    if(controls.RESET){
       judgePlacementPos.set(0,0);
     }
 
     judge.x = defaultPos.x + judgePlacementPos.x;
     judge.y = defaultPos.y + judgePlacementPos.y;
 
-    if(FlxG.keys.justPressed.C){
+    if(controls.PAUSE){
       showCombo();
     }
 
