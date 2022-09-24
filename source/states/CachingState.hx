@@ -85,10 +85,10 @@ class CachingState extends FlxUIState {
     FlxG.sound.playMusic(Paths.music('old/title'));
 
     if(EngineData.options.cachePreload){
-      if(FileSystem.isDirectory("assets/images") ){
-        for (file in FileSystem.readDirectory("assets/images"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/images") ){
+        for (file in FileSystem.readDirectory(Generic.returnPath() + "assets/images"))
         {
-          if(file.endsWith(".png") && !FileSystem.isDirectory(file)){ // TODO: recursively go through all directories
+          if(file.endsWith(".png") && !FileSystem.isDirectory(Generic.returnPath() + 'assets/images/${file}')){ // TODO: recursively go through all directories
             images.push('assets/images/${file}');
           }
         }
@@ -96,21 +96,21 @@ class CachingState extends FlxUIState {
     }
 
     if(EngineData.options.cacheCharacters){
-      if(FileSystem.isDirectory("assets/characters/images") ){
-        for (file in FileSystem.readDirectory("assets/characters/images"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/characters/images") ){
+        for (file in FileSystem.readDirectory(Generic.returnPath() + "assets/characters/images"))
         {
-          if(file.endsWith(".png") && !FileSystem.isDirectory(file)){
+          if(file.endsWith(".png") && !FileSystem.isDirectory(Generic.returnPath() + 'assets/characters/images/${file}')){
             images.push('assets/characters/images/${file}');
           }
         }
       }
     }
     if(EngineData.options.cacheSongs){
-      if(FileSystem.isDirectory("assets/songs") ){
-        for (dir in FileSystem.readDirectory("assets/songs"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/songs") ){
+        for (dir in FileSystem.readDirectory(Generic.returnPath() + "assets/songs"))
         {
-          if (FileSystem.isDirectory('assets/songs/${dir}')){
-            for (file in FileSystem.readDirectory('assets/songs/${dir}'))
+          if (FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${dir}')){
+            for (file in FileSystem.readDirectory(Generic.returnPath() + 'assets/songs/${dir}'))
             {
               if(file.endsWith('.mp3') || file.endsWith('.ogg')){
                 sounds.push('assets/songs/${dir}/${file}');
@@ -121,8 +121,8 @@ class CachingState extends FlxUIState {
       }
 
 
-      if(FileSystem.isDirectory("assets/music") ){
-        for (file in FileSystem.readDirectory("assets/music"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/music") ){
+        for (file in FileSystem.readDirectory(Generic.returnPath() + "assets/music"))
         {
           if(file.endsWith('.mp3') || file.endsWith('.ogg')){
             sounds.push('assets/music/${file}');
@@ -130,8 +130,8 @@ class CachingState extends FlxUIState {
         }
       }
 
-      if(FileSystem.isDirectory("assets/shared/music") ){
-        for (file in FileSystem.readDirectory("assets/shared/music"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/shared/music") ){
+        for (file in FileSystem.readDirectory(Generic.returnPath() + "assets/shared/music"))
         {
           if(file.endsWith('.mp3') || file.endsWith('.ogg')){
             sounds.push('assets/shared/music/${file}');
@@ -142,16 +142,16 @@ class CachingState extends FlxUIState {
     }
 
     if(EngineData.options.cacheSounds){
-      if(FileSystem.isDirectory("assets/sounds") ){
-        for (file in FileSystem.readDirectory("assets/sounds"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/sounds") ){
+        for (file in FileSystem.readDirectory(Generic.returnPath() + "assets/sounds"))
         {
           if(file.endsWith('.mp3') || file.endsWith('.ogg')){
             sounds.push('assets/sounds/${file}');
           }
         }
       }
-      if(FileSystem.isDirectory("assets/shared/sounds") ){
-        for (file in FileSystem.readDirectory("assets/shared/sounds"))
+      if(FileSystem.isDirectory(Generic.returnPath() + "assets/shared/sounds") ){
+        for (file in FileSystem.readDirectory(Generic.returnPath() + "assets/shared/sounds"))
         {
           if(file.endsWith('.mp3') || file.endsWith('.ogg')){
             sounds.push('assets/shared/sounds/${file}');
@@ -194,7 +194,7 @@ class CachingState extends FlxUIState {
         if(msg!=null && msg!=recentlyLoadedImg){
           recentlyLoadedImg=msg;
           var id = msg.replace(".png","");
-          var data:BitmapData = BitmapData.fromFile(msg);
+          var data:BitmapData = BitmapData.fromFile(Generic.returnPath() + msg);
           var graphic = FlxG.bitmap.add(data,true,id);
           graphic.persist=true;
           graphic.destroyOnNoUse=false;
@@ -217,13 +217,7 @@ class CachingState extends FlxUIState {
         var msg:Null<String> = Thread.readMessage(false);
         if(msg!=null && msg!=recentlyLoadedSnd){
           recentlyLoadedSnd=msg;
-          if(Assets.exists(msg, AssetType.SOUND) || Assets.exists(msg, AssetType.MUSIC)){ // https://github.com/HaxeFlixel/flixel/blob/master/flixel/system/frontEnds/SoundFrontEnd.hx
-            var sound = FlxG.sound.cache(msg);
-            CoolUtil.cacheSound(msg,sound);
-          }else{
-            CoolUtil.cacheSound(msg,Sound.fromFile('./$msg'));
-          }
-
+          CoolUtil.cacheSound(msg,Sound.fromFile(Generic.returnPath() + msg));
           trace("loaded " + msg);
           loaded++;
           soundsLoaded++;
