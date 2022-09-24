@@ -74,6 +74,10 @@ import llua.State;
 import llua.LuaL;
 #end
 
+#if android
+import ui.Hitbox;
+#end
+
 import EngineData.WeekData;
 import EngineData.SongData;
 
@@ -82,6 +86,10 @@ using flixel.util.FlxSpriteUtil;
 
 class PlayState extends MusicBeatState
 {
+
+        #if android
+        public static var _hitbox:Hitbox;
+        #end
 
 	public static var noteCounter:Map<String,Int> = [];
 	public static var inst:FlxSound;
@@ -736,12 +744,10 @@ class PlayState extends MusicBeatState
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText + songData.displayName + " (" + storyDifficultyText + ")", iconRPC);
 		#end
-		try{
+		if (curStage == 'school' || curStage == 'schoolEvil') {
 			vcrDistortionHUD = new VCRDistortionEffect();
 			vcrDistortionGame = new VCRDistortionEffect();
-		}catch(e:Any){
-			trace(e);
-		}
+                }
 
 		noteModifier='base';
 		uiModifier='base';
@@ -1001,6 +1007,19 @@ class PlayState extends MusicBeatState
 		ratingCountersUI.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
+                #if android
+                _hitbox = new Hitbox();
+                controls.setHitBox(_hitbox);
+		var theshit = new FlxCamera();
+		FlxG.cameras.add(theshit);
+		theshit.bgColor.alpha = 0;
+		_hitbox.cameras = [theshit];
+
+		trackedinputs = controls.trackedinputs;
+		controls.trackedinputs = [];
+		_hitbox.visible = false;
+		add(_hitbox);
+                #end
 
 		var centerP = new FlxSprite(0,0);
 		centerP.screenCenter(XY);
@@ -1298,6 +1317,10 @@ class PlayState extends MusicBeatState
 		var countdownStatus:Int = 3; // 3 = show entire countdown. 2 = only sounds, 1 = non-visual countdown, 0 = skip countdown
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN,keyPress);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP,keyRelease);
+
+                #if android
+                _hitbox.visible = true;
+                #end
 
 		inCutscene = false;
 
@@ -3046,6 +3069,44 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
+
+                // (sirox) i hate input system in andromeda, cuz i need to remake it for each port
+                if (controls.LEFT_P) {
+                        pressedKeys[0] = true;
+                        handleInput(0);
+                        updateReceptors();
+                }
+                if (controls.DOWN_P) {
+                        pressedKeys[1] = true;
+                        handleInput(1);
+                        updateReceptors();
+                }
+                if (controls.UP_P) {
+                        pressedKeys[2] = true;
+                        handleInput(2);
+                        updateReceptors();
+                }
+                if (controls.RIGHT_P) {
+                        pressedKeys[3] = true;
+                        handleInput(3);
+                        updateReceptors();
+                }
+                if (controls.LEFT_R) {
+                        pressedKeys[0] = false;
+                        updateReceptors();
+                }
+                if (controls.DOWN_R) {
+                        pressedKeys[1] = false;
+                        updateReceptors();
+                }
+                if (controls.UP_R) {
+                        pressedKeys[2] = false;
+                        updateReceptors();
+                }
+                if (controls.RIGHT_R) {
+                        pressedKeys[3] = false;
+                        updateReceptors();
+                }
 	}
 
 	function endSong():Void
@@ -3054,6 +3115,9 @@ class PlayState extends MusicBeatState
 		inst.volume = 0;
 		vocals.volume = 0;
 		inst.stop();
+                #if android
+                _hitbox.visible = false;
+                #end
 
 		#if cpp
 		if(lua!=null){
