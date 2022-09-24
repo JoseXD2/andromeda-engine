@@ -72,7 +72,7 @@ class Hitbox extends FlxSpriteGroup
 	{
 		var shape:Shape = new Shape();
 
-		if (FlxG.save.data.gradientHitboxes)
+		if (currentOptions.hitboxOpacity)
 		{
 			shape.graphics.beginFill(Color);
 			shape.graphics.lineStyle(3, Color, 1);
