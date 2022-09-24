@@ -6,6 +6,11 @@ import flixel.FlxSubState;
 import Options;
 import ui.*;
 import flixel.input.keyboard.FlxKey;
+#if android
+import flixel.FlxCamera;
+import ui.FlxVirtualPad;
+import flixel.input.actions.FlxActionInput;
+#end
 
 class MusicBeatSubstate extends FlxSubState
 {
@@ -29,6 +34,25 @@ class MusicBeatSubstate extends FlxSubState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
+
+        #if android
+	var virtualpad:FlxVirtualPad;
+
+	var trackedinputs:Array<FlxActionInput> = [];
+
+	// adding virtualpad to state
+	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
+		virtualpad = new FlxVirtualPad(DPad, Action);
+		virtualpad.alpha = 0.75;
+		var padsubcam = new FlxCamera();
+		FlxG.cameras.add(padsubcam);
+		padsubcam.bgColor.alpha = 0;
+		virtualpad.cameras = [padsubcam];
+		add(virtualpad);
+	}
+	#else
+	public function addVirtualPad(?DPad, ?Action){};
+	#end
 
 	override function update(elapsed:Float)
 	{
