@@ -7,7 +7,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import sys.io.File;
 import ui.*;
-import flash.display.BitmapData;
+import openfl.display.BitmapData;
 import Sys;
 import sys.FileSystem;
 import flixel.util.FlxDestroyUtil;
