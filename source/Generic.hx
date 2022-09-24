@@ -166,17 +166,8 @@ class Generic {
 	
 	public static function copyContent(copyPath:String, savePath:String)
 	{
-			trace(returnPath());
-			trace('saving dir: ' + returnPath() + savePath);
-			trace(copyPath);
-			var fileName:String = Paths.video("StoryStart");
-			trace(fileName);
-			trace('FileSystem.exists(fileName) = ' + FileSystem.exists(fileName));
-			trace('FileSystem.exists(returnPath() + savePath) = ' + FileSystem.exists(returnPath() + savePath));
-			trace('Assets.exists(copyPath) = ' + Assets.exists(copyPath));
-			if (!FileSystem.exists(returnPath() + savePath)/* && Assets.exists(copyPath)*/) {
-				File.saveBytes(returnPath() + savePath, Assets.getBytes('videos:' + copyPath));
-			    trace('saved');
+			if (!FileSystem.exists(returnPath() + savePath) && Assets.exists(copyPath)) {
+				File.saveBytes(returnPath() + savePath, Assets.getBytes(copyPath));
 			}
 	}
 }
