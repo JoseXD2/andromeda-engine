@@ -62,7 +62,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	function onMouseDown(object:FlxObject){
-		for(idx in 0...grpSongs.members.length){
+		/*for(idx in 0...grpSongs.members.length){
 			var obj = grpSongs.members[idx];
 			var icon = iconArray[idx];
 			if(obj==object || icon==object){
@@ -72,7 +72,7 @@ class FreeplayState extends MusicBeatState
 					selectSong();
 				}
 			}
-		}
+		}*/
 	}
 
 	function onMouseUp(object:FlxObject){
@@ -284,7 +284,7 @@ class FreeplayState extends MusicBeatState
                                 //lime.app.Application.current.window.alert(file, 'a'); // JUST FUCKING TELL ME, DOES 'FILE' HAVE FULL PATH OR FILE NAME
                                 // ok, now i know, that it returns array of file names
 				if(file.endsWith(".json") && !FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}')){
-                                        lime.app.Application.current.window.alert('the shit for' + Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}' + 'is: ' + FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}'), 'a');
+                                        //lime.app.Application.current.window.alert('the shit for' + Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}' + 'is: ' + FileSystem.isDirectory(Generic.returnPath() + 'assets/songs/${songData.chartName.toLowerCase()}/${file}'), 'a');
 					var difficultyName = file.replace(".json","").replace(songData.chartName.toLowerCase(),"");
 					switch(difficultyName.toLowerCase()){
 						case '-easy':
