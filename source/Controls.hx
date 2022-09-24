@@ -452,6 +452,8 @@ class Controls extends FlxActionSet
 				inline forEachBound(Control.CHEAT, (action, state) -> addbutton(action, virtualPad.buttonC, state));
                         case B_X_Y_C_Z_V_G_S:
                                 // fuck those inputs, i'll better write button.justPressed in the state
+                        case A_B_X_Y_C_Z_V_G_S_F_E_D:
+                                // fuck those x2
 			case NONE:
 		}
 	}
