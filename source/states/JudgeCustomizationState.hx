@@ -150,13 +150,7 @@ class JudgeCustomizationState extends MusicBeatState {
 
   }
 
-  var mouseX:Float;
-  var mouseY:Float;
   override function update(elapsed){
-    var deltaX = mouseX-FlxG.mouse.screenX;
-    var deltaY = mouseY-FlxG.mouse.screenY;
-    mouseX = FlxG.mouse.screenX;
-    mouseY = FlxG.mouse.screenY;
     if(FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.ENTER){
       if(FlxG.keys.justPressed.ENTER){
         EngineData.options.judgeX = judgePlacementPos.x;
@@ -164,15 +158,6 @@ class JudgeCustomizationState extends MusicBeatState {
         OptionUtils.saveOptions(OptionUtils.options);
       }
       FlxG.switchState(new OptionsState());
-    }
-
-
-    if(FlxG.mouse.overlaps(judge) && FlxG.mouse.justPressed){
-      draggingJudge=true;
-    }
-
-    if(FlxG.mouse.justReleased){
-      draggingJudge=false;
     }
 
     if(FlxG.keys.justPressed.R){
@@ -186,15 +171,12 @@ class JudgeCustomizationState extends MusicBeatState {
       showCombo();
     }
 
-    if(draggingJudge){
-      if(FlxG.mouse.pressed){
-        judgePlacementPos.x -= deltaX;
-  			judgePlacementPos.y -= deltaY;
-      }else{
-        draggingJudge=false;
+    for (touch in FlxG.touches.list) {
+      if (touch.pressed && !touch.overlaps(_virtualpad)) {
+        judgePlacementPos.x = touch.x;
+        judgePlacementPos.y = touch.y;
       }
     }
-
 
     super.update(elapsed);
   }
