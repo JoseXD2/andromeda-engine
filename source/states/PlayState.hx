@@ -575,7 +575,7 @@ class PlayState extends MusicBeatState
 
 		//lua = new LuaVM();
 		#if cpp
-			luaModchartExists = FileSystem.exists(Paths.modchart(songData.chartName.toLowerCase()));
+		luaModchartExists = FileSystem.exists(Generic.returnPath() + Paths.modchart(songData.chartName.toLowerCase()));
 		#end
 
 		trace(luaModchartExists);
@@ -689,7 +689,7 @@ class PlayState extends MusicBeatState
 				];
 			default:
 				try {
-					dialogue = CoolUtil.coolTextFile2(File.getContent(Paths.dialogue(songData.chartName.toLowerCase() + "/dialogue")));
+					dialogue = CoolUtil.coolTextFile2(File.getContent(Generic.returnPath() + Paths.dialogue(songData.chartName.toLowerCase() + "/dialogue")));
 				} catch(e){
 					trace("epic style " + e.message);
 				}
