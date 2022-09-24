@@ -116,7 +116,7 @@ class InitState extends FlxUIState {
 		Application.current.onExit.add (function (exitCode) {
 			DiscordClient.shutdown();
 		 });
-		#end
+    #end
 
 
     var canCache=false;
