@@ -10,43 +10,37 @@ class ReverseModifier extends Modifier {
 
   public function getReversePercent(dir:Int, player:Int, scrolling=false){
     var suffix = '';
-    lime.app.Application.current.window.alert('start', "a");
     if(scrolling==true)suffix='Scroll';
-    lime.app.Application.current.window.alert('scroll shit?', "a");
     var receptors = modMgr.receptors[player];
     var kNum = receptors.length;
     var percent:Float = 0;
-    lime.app.Application.current.window.alert('starting count', "a");
+
     if(dir>=kNum/2)
       percent += getSubmodPercent("split" + suffix,player);
-    lime.app.Application.current.window.alert('first done', "a");
+
     if((dir%2)==1)
       percent += getSubmodPercent("alternate" + suffix,player);
-    lime.app.Application.current.window.alert('second done', "a");
+
     var first = kNum/4;
     var last = kNum-1-first;
 
     if(dir>=first && dir<=last){
       percent += getSubmodPercent("cross" + suffix,player);
     }
-    lime.app.Application.current.window.alert('third done', "a");
+
     if(suffix==''){
       percent += getPercent(player) + getSubmodPercent("reverse" + Std.string(dir),player);
     }else{
       percent += getSubmodPercent("reverse" + suffix,player);
     }
-    lime.app.Application.current.window.alert('fourth done', "a");
+
     if(getSubmodPercent("unboundedReverse",player)==0){
       percent %=2;
       if(percent>1)percent=2-percent;
     }
 
-
-
-    lime.app.Application.current.window.alert('fifth done', "a");
     if(modMgr.state.currentOptions.downScroll)
       percent = 1-percent;
-    lime.app.Application.current.window.alert('return?', "a");
     return percent;
   }
 
