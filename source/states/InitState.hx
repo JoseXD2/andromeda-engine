@@ -43,7 +43,7 @@ class InitState extends FlxUIState {
 
   public static function getCharacters(){
     EngineData.characters=[];
-    for(file in FileSystem.readDirectory('assets/characters/data') ){
+    for(file in FileSystem.readDirectory(Generic.returnPath() + 'assets/characters/data') ){
       if(file.endsWith(".json")){
         var name = file.replace(".json","");
         if(!name.endsWith("-player")){
