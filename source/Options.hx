@@ -774,7 +774,7 @@ class NoteskinOption extends Option
 		this.defaultDesc=description;
 		var idx=0;
 
-		var noteskinOrder = CoolUtil.coolTextFile(Paths.txtImages('skins/noteskinOrder'));
+		var noteskinOrder = CoolUtil.coolTextFile(Generic.returnPath() + Paths.txtImages('skins/noteskinOrder'));
 
 		for (i in 0...noteskinOrder.length)
 		{
