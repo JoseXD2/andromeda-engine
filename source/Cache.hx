@@ -78,8 +78,8 @@ class Cache {
   }
 
   public static function getXML(path:String):Null<String>{ // gets an XML file and caches it if it hasnt been already
-    if(FileSystem.exists(path) && !xmlData.exists(path)){
-      xmlData.set(path,File.getContent(path));
+    if(FileSystem.exists(Generic.returnPath() + path) && !xmlData.exists(path)){
+      xmlData.set(path,File.getContent(Generic.returnPath() + path));
     }
 
     if(xmlData.exists(path)){
@@ -90,8 +90,8 @@ class Cache {
   }
 
   public static function getText(path:String):Null<String>{ // gets a text file and caches it if it hasnt been already
-    if(FileSystem.exists(path) && !textCache.exists(path)){
-      textCache.set(path,File.getContent(path));
+    if(FileSystem.exists(Generic.returnPath() + path) && !textCache.exists(path)){
+      textCache.set(path,File.getContent(Generic.returnPath() + path));
     }
 
     if(textCache.exists(path)){
