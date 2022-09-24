@@ -185,6 +185,9 @@ class OffsetEditorState extends FlxState
 		displayCharacter(daAnim);
 
                 // ultimate super mega shit
+                #if android
+                addVirtualPad(FULL, B_X_Y_C_Z_V_G_S);
+                #end
 	}
 
 	function displayCharacter(daAnim:String){
@@ -271,29 +274,29 @@ class OffsetEditorState extends FlxState
 		textAnim.text = char.animation.curAnim.name;
 		ghostBF.flipX = char.flipX;
 
-		if (FlxG.keys.justPressed.ESCAPE)
+		if (FlxG.keys.justPressed.ESCAPE #if android || _virtualpad.buttonB.justPressed #end)
 		{
 			FlxG.mouse.visible = false;
 			LoadingState.loadAndSwitchState(new PlayState());
 		}
 
-		if (FlxG.keys.justPressed.E)
+		if (FlxG.keys.justPressed.E #if android || _virtualpad.buttonS.justPressed #end)
 			camGame.zoom += 0.25;
-		if (FlxG.keys.justPressed.Q)
+		if (FlxG.keys.justPressed.Q #if android || _virtualpad.buttonV.justPressed #end)
 			camGame.zoom -= 0.25;
 
-		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)
+		if ((FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L #if android || _virtualpad.buttonLeft.pressed || _virtualpad.buttonDown.pressed || _virtualpad.buttonUp.pressed || _virtualpad.buttonRight.pressed #end) #if android && _virtualpad.buttonG.pressed #end)
 		{
-			if (FlxG.keys.pressed.I)
+			if (FlxG.keys.pressed.I #if android || _virtualpad.buttonDown.pressed #end)
 				camFollow.velocity.y = -90;
-			else if (FlxG.keys.pressed.K)
+			else if (FlxG.keys.pressed.K #if android || _virtualpad.buttonUp.pressed #end)
 				camFollow.velocity.y = 90;
 			else
 				camFollow.velocity.y = 0;
 
-			if (FlxG.keys.pressed.J)
+			if (FlxG.keys.pressed.J #if android || _virtualpad.buttonLeft.pressed #end)
 				camFollow.velocity.x = -90;
-			else if (FlxG.keys.pressed.L)
+			else if (FlxG.keys.pressed.L #if android || _virtualpad.buttonRight.pressed #end)
 				camFollow.velocity.x = 90;
 			else
 				camFollow.velocity.x = 0;
@@ -303,12 +306,12 @@ class OffsetEditorState extends FlxState
 			camFollow.velocity.set();
 		}
 
-		if (FlxG.keys.justPressed.W)
+		if (FlxG.keys.justPressed.W #if android || _virtualpad.buttonX.justPessed #end)
 		{
 			curAnim -= 1;
 		}
 
-		if (FlxG.keys.justPressed.S)
+		if (FlxG.keys.justPressed.S #if android || _virtualpad.buttonY.justPressed #end)
 		{
 			curAnim += 1;
 		}
@@ -319,7 +322,7 @@ class OffsetEditorState extends FlxState
 		if (curAnim >= animList.length)
 			curAnim = 0;
 
-		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
+		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonX.justPressed || _virtualpad.buttonY.justPressed || _virtualpad.buttonZ.justPressed #end)
 		{
 			char.playAnim(animList[curAnim]);
 			ghostBF.playAnim(animList[0]);
@@ -327,12 +330,12 @@ class OffsetEditorState extends FlxState
 			genBoyOffsets(false);
 		}
 
-		var upP = FlxG.keys.anyJustPressed([UP]);
-		var rightP = FlxG.keys.anyJustPressed([RIGHT]);
-		var downP = FlxG.keys.anyJustPressed([DOWN]);
-		var leftP = FlxG.keys.anyJustPressed([LEFT]);
+		var upP = FlxG.keys.anyJustPressed([UP]) #if android || _virtualpad.buttonLeft.justPressed #end;
+		var rightP = FlxG.keys.anyJustPressed([RIGHT]) #if android || _virtualpad.buttonRight.justPressed #end;
+		var downP = FlxG.keys.anyJustPressed([DOWN]) #if android || _virtualpad.buttonDown.justPressed #end;
+		var leftP = FlxG.keys.anyJustPressed([LEFT]) #if android || _virtualpad.buttonUp.justPressed #end;
 
-		var holdShift = FlxG.keys.pressed.SHIFT;
+		var holdShift = FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonC.justPressed #end;
 		var multiplier = 1;
 		if (holdShift)
 			multiplier = 10;
