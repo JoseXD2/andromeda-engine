@@ -59,9 +59,9 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				//checkLoadSong(getSongPath());
-				//if (PlayState.SONG.needsVoices)
-					//checkLoadSong(getVocalPath());
+				/*checkLoadSong(getSongPath());
+				if (PlayState.SONG.needsVoices)
+					checkLoadSong(getVocalPath());*/
 				checkLibrary("shared");
 				if (PlayState.songData!=null)
 					checkLibrary(PlayState.songData.loadingPath);
@@ -148,22 +148,15 @@ class LoadingState extends MusicBeatState
 	{
 		Cache.clear();
 
-                Paths.setCurrentLevel(PlayState.songData.loadingPath);
-
-                if (stopMusic && FlxG.sound.music != null)
-			FlxG.sound.music.stop();
-
-		FlxG.switchState(target);
+		FlxG.switchState(getNextState(target, stopMusic));
 	}
 
-	/*static function getNextState(target:FlxState, stopMusic = false):FlxState
+	static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
 		trace(PlayState.songData.loadingPath);
 		Paths.setCurrentLevel(PlayState.songData.loadingPath);
 		#if NO_PRELOAD_ALL
-		var loaded = isSoundLoaded(getSongPath())
-			&& (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath()))
-			&& isLibraryLoaded("shared");
+		var loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared");
 
 		if (!loaded)
 			return new LoadingState(target, stopMusic);
@@ -185,7 +178,6 @@ class LoadingState extends MusicBeatState
 		return Assets.getLibrary(library) != null;
 	}
 	#end
-        */
 
 	override function destroy()
 	{
