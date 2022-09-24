@@ -82,7 +82,9 @@ class OptionsState extends MusicBeatState
 				new ToggleOption("holdsBehindReceptors","Holds Behinds Receptors","Makes holds layer behind the receptors, similar to other VSRGs"),
 				new NoteskinOption("noteSkin","NoteSkin","The noteskin to use"),
 				new OptionCategory("Effects",[
-					new ToggleOption("raymarcher","Raymarcher Shaders","Lets the camera have pitch and yaw. May cause lag"),
+					/*new ToggleOption("raymarcherHud","Raymarcher on HUD","Lets the camera have pitch and yaw. May cause lag"),
+                                        new ToggleOption("raymarcherHudYaw","Raymarcher HUD Yaw","yaw for the hud raymarching"),
+                                        new ToggleOption("raymarcherHud","Raymarcher HUD Yaw","yaw for the hud raymarching"),*/
 					new ToggleOption("picoCamshake","Train camera shake","Whether the train in week 3's background shakes the camera"),
 					new ScrollOption("senpaiShaderStrength","Week 6 shaders","How strong the week 6 shaders are",0,2,["Off","CRT","All"])
 				]),
