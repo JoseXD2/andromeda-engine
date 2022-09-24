@@ -364,7 +364,7 @@ class ChartingState extends MusicBeatState
 		resetSection();
 
                 #if android
-                addVirtualPad(FULL, A_B_X_Y_C);
+                addVirtualPad(FULL, A_B_X_Y_C_Z_V_G_S_F_E_D);
                 #end
 	}
 
