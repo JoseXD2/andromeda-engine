@@ -17,6 +17,9 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import Generic.PermsState;
+#if android
+import android.Permissions
+#end
 
 using StringTools;
 
@@ -82,10 +85,12 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-                var permsShit:FlxState = PermsState;
+                #if android
+                var permsShit:Class<FlxState> = PermsState;
                 if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) {
                         permsShit = initialState;
                 }
+                #end
 
 		addChild(new FlxGame(gameWidth, gameHeight, permsShit, zoom, framerate, framerate, skipSplash, startFullscreen));
 
