@@ -104,7 +104,7 @@ class Character extends FlxSprite
 	}
 
 	public static function getJSON(charName:String,player:Bool=false):CharJson{
-		var pathBase = 'assets/characters/data/';
+		var pathBase = Generic.returnPath() + 'assets/characters/data/';
 		var daCharPath = pathBase + charName + ".json";
 		var playerPath = pathBase + charName + "-player.json";
 		if(player && FileSystem.exists(playerPath))daCharPath=playerPath;
@@ -154,7 +154,7 @@ class Character extends FlxSprite
 			default:
 			{
 				curCharacter=newChar;
-				var pathBase = 'assets/characters/data/';
+				var pathBase = Generic.returnPath() + 'assets/characters/data/';
 				var daCharPath = pathBase + curCharacter + ".json";
 				var playerPath = pathBase + curCharacter + "-player.json";
 				if(isPlayer && FileSystem.exists(playerPath))daCharPath=playerPath;
@@ -169,28 +169,28 @@ class Character extends FlxSprite
 	public function setCharData(){
 		if(charData!=null){
 			var chars = "assets/characters/images/";
-			var pathBase = "assets/characters/data/";
+			var pathBase = Generic.returnPath() + "assets/characters/data/";
 
 			var playerPath = pathBase + curCharacter + "-player.json";
 
 			var spritesheet = charData.spritesheet;
 			var path = chars + spritesheet;
 
-			if(FileSystem.exists(path + ".png")){
+			if(FileSystem.exists(Generic.returnPath() + path + ".png")){
 				var image = FlxG.bitmap.get(path);
 				if(image==null){
-					image = FlxG.bitmap.add(BitmapData.fromFile(path + ".png"),false,path);
+					image = FlxG.bitmap.add(BitmapData.fromFile(Generic.returnPath() + path + ".png"),false,path);
 				}
-				if(FileSystem.exists(path + ".txt")){
-					frames = FlxAtlasFrames.fromSpriteSheetPacker(image, File.getContent(path + ".txt") );
-				}else if(FileSystem.exists(path + ".xml")){
-					frames = FlxAtlasFrames.fromSparrow(image, File.getContent(path + ".xml") );
+				if(FileSystem.exists(Generic.returnPath() + path + ".txt")){
+					frames = FlxAtlasFrames.fromSpriteSheetPacker(image, File.getContent(Generic.returnPath() + path + ".txt") );
+				}else if(FileSystem.exists(Generic.returnPath() + path + ".xml")){
+					frames = FlxAtlasFrames.fromSparrow(image, File.getContent(Generic.returnPath() + path + ".xml") );
 				}
 			}
 
 			animOffsets.clear();
 			animation.destroyAnimations();
-			var offsetPath = "assets/characters/images/"+curCharacter+"Offsets.txt";
+			var offsetPath = Generic.returnPath() + "assets/characters/images/"+curCharacter+"Offsets.txt";
 			var defaultOffsets:Map<String,Array<Float>>=[];
 			if(FileSystem.exists(offsetPath)){
 				var offsets = CoolUtil.coolTextFile2(File.getContent(offsetPath));
@@ -350,7 +350,7 @@ class Character extends FlxSprite
 		if(Cache.offsetData[curCharacter]!=null){
 			offsets = CoolUtil.coolTextFile2(Cache.offsetData[curCharacter]);
 		}else{
-			var data = File.getContent("assets/shared/images/characters/"+curCharacter+"Offsets.txt");
+			var data = File.getContent(Generic.returnPath() + "assets/shared/images/characters/"+curCharacter+"Offsets.txt");
 			offsets = CoolUtil.coolTextFile2(data);
 			Cache.offsetData[curCharacter] = data;
 		}
@@ -368,7 +368,7 @@ class Character extends FlxSprite
 			if(Cache.offsetData[curCharacter]!=null){
 				anims = CoolUtil.coolTextFile2(Cache.animData[curCharacter]);
 			}else{
-				var data = File.getContent("assets/shared/images/characters/"+curCharacter+"Anims.txt");
+				var data = File.getContent(Generic.returnPath() + "assets/shared/images/characters/"+curCharacter+"Anims.txt");
 				anims = CoolUtil.coolTextFile2(data);
 				Cache.animData[curCharacter] = data;
 			}
