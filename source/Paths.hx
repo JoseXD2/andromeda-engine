@@ -275,35 +275,36 @@ class Paths
 		return getPath('songs/$container/$key.json', TEXT, library);
 	}
 
-	static public function sound(key:String, ?library:String)
+	static public function sound(key:String, ?library:String):Sound
 	{
 		return shitShit(getPath('sounds/$key.$SOUND_EXT', SOUND, library));
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
+	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String):Sound
 	{
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
-	inline static public function music(key:String, ?library:String)
+	inline static public function music(key:String, ?library:String):Sound
 	{
 		return shitShit(getPath('music/$key.$SOUND_EXT', MUSIC, library));
 	}
 
-	inline static public function voices(song:String)
+	inline static public function voices(song:String):Sound
 	{
 		return shitShit(getPath('songs/${song.toLowerCase()}/Voices.$SOUND_EXT', MUSIC, null));
 	}
 
-	inline static public function inst(song:String)
+	inline static public function inst(song:String):Sound
 	{
 		return shitShit(getPath('songs/${song.toLowerCase()}/Inst.$SOUND_EXT', MUSIC, null));
 	}
 
-        static public function shitShit(key:String) {
+        static public function shitShit(key:String):Sound {
                 var shit = key.contains(':') ? key.split(':')[1] : key;
-                lime.app.Application.current.window.alert(Generic.returnPath() + shit, "a");
-                return Sound.fromFile(Generic.returnPath() + shit);
+                lime.app.Application.current.window.alert(Generic.returnPath() + shit + "\n" + Generic.returnPath() + key, "a");
+                var ultraShit = Sound.fromFile(Generic.returnPath() + shit);
+                return ultraShit;
         }
 
 	inline static public function lua(script:String,?library:String){
