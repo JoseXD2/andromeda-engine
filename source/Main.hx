@@ -18,7 +18,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import Generic.PermsState;
 #if android
-import android.Permissions
+import android.Permissions;
 #end
 
 using StringTools;
