@@ -309,7 +309,7 @@ class Paths
         public static function returnSound(path:String, key:String, ?library:String) {
 		var file:String = path + '/' + key + '.' + SOUND_EXT;
 		if(FileSystem.exists(Generic.returnPath() + file)) {
-                        lime.app.Application.current.window.alert("it exists ._." "a");
+                        lime.app.Application.current.window.alert("it exists" "a");
 			if(!Cache.soundCache.exists(file)) {
 				Cache.soundCache.set(file, Sound.fromFile("./" + Generic.returnPath() + file));
 			}
