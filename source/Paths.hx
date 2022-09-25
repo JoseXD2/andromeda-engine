@@ -62,7 +62,7 @@ class Paths
 		var folders:Array<String>=[];
 		// TODO: openflassets shit maybe?
 		for(folder in FileSystem.readDirectory(Generic.returnPath() + '${base}/${library}') ){
-			if(!folder.contains(".") && FileSystem.isDirectory('${base}/${library}/${folder}')){
+			if(!folder.contains(".") && FileSystem.isDirectory(Generic.returnPath() + '${base}/${library}/${folder}')){
 				folders.push(folder);
 			}
 		}
