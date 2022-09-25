@@ -277,7 +277,7 @@ class Paths
 
 	static public function sound(key:String, ?library:String):Sound
 	{
-		return shitShit(getPath('sounds/$key.$SOUND_EXT', SOUND, library));
+		return shitShit('sounds/$key.$SOUND_EXT', library, true);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String):Sound
@@ -287,20 +287,23 @@ class Paths
 
 	inline static public function music(key:String, ?library:String):Sound
 	{
-		return shitShit(getPath('music/$key.$SOUND_EXT', MUSIC, library));
+		return shitShit('music/$key.$SOUND_EXT', library);
 	}
 
 	inline static public function voices(song:String):Sound
 	{
-		return shitShit(getPath('songs/${song.toLowerCase()}/Voices.$SOUND_EXT', MUSIC, null));
+		return shitShit('songs/${song.toLowerCase()}/Voices.$SOUND_EXT', null);
 	}
 
 	inline static public function inst(song:String):Sound
 	{
-		return shitShit(getPath('songs/${song.toLowerCase()}/Inst.$SOUND_EXT', MUSIC, null));
+		return shitShit('songs/${song.toLowerCase()}/Inst.$SOUND_EXT', null);
 	}
 
-        static public function shitShit(key:String):Sound {
+        static public function shitShit(key:String, ?library:String, ?isSound:Bool = false):Sound {
+                var aaaa:AssetType = MUSIC;
+                if (isSound) { aaaa = SOUND; }
+                var someshit = getPath(key, aaaa, library);
                 var shit = key.contains(':') ? key.split(':')[1] : key;
                 var ultraShit = CoolUtil.getSound(Generic.returnPath() + shit);
                 return ultraShit;
