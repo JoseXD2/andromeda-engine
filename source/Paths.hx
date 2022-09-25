@@ -314,7 +314,7 @@ class Paths
 			}
 			return Cache.soundCache.get(file);
 		}
-		// STOLEND FROM PSYCH, I PREY TO JESUS THAT THIS WOULD WORK
+		// (sirox) STOLEN FROM PSYCH, I PREY TO JESUS THAT THIS WOULD WORK WITHOUT NO SOUND BUG
 		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
