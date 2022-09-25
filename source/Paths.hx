@@ -275,39 +275,54 @@ class Paths
 		return getPath('songs/$container/$key.json', TEXT, library);
 	}
 
-	static public function sound(key:String, ?library:String):Sound
+        static public function sound(key:String, ?library:String):Sound
 	{
-		return shitShit('sounds/$key.$SOUND_EXT', library, true);
+		var sound:Sound = returnSound('sounds', key, library);
+		return sound;
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String):Sound
+	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
 	inline static public function music(key:String, ?library:String):Sound
 	{
-		return shitShit('music/$key.$SOUND_EXT', library);
+		var file:Sound = returnSound('music', key, library);
+		return file;
 	}
 
-	inline static public function voices(song:String):Sound
+	inline static public function voices(song:String):Any
 	{
-		return shitShit('songs/${song.toLowerCase()}/Voices.$SOUND_EXT', null);
+		var songKey:String = '${song.toLowerCase()}/Voices';
+		var voices = returnSound('songs', songKey);
+		return voices;
 	}
 
-	inline static public function inst(song:String):Sound
+	inline static public function inst(song:String):Any
 	{
-		return shitShit('songs/${song.toLowerCase()}/Inst.$SOUND_EXT', null);
+		var songKey:String = '${song.toLowerCase()}/Inst';
+		var inst = returnSound('songs', songKey);
+		return inst;
 	}
 
-        static public function shitShit(key:String, ?library:String, ?isSound:Bool = false):Sound {
-                var aaaa:AssetType = MUSIC;
-                if (isSound) { aaaa = SOUND; }
-                var someshit = getPath(key, aaaa, library);
-                var shit = key.contains(':') ? key.split(':')[1] : key;
-                var ultraShit = CoolUtil.getSound(Generic.returnPath() + shit);
-                return ultraShit;
-        }
+        public static function returnSound(path:String, key:String, ?library:String) {
+		var file:String = path + '/' + key + '.' + SOUND_EXT;
+		if(FileSystem.exists(Generic.returnPath() + file)) {
+			if(!Cache.soundCache.exists(file)) {
+				Cache.soundCache.set(file, Sound.fromFile(Generic.returnPath() + file));
+			}
+			return Cache.soundCache.get(file);
+		}
+		// STOLEND FROM PSYCH, I PREY TO JESUS THAT THIS WOULD WORK
+		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
+		// trace(gottenPath);
+		if(!Cache.soundCache.exists(gottenPath)) {
+			Cache.soundCache.set(gottenPath, Sound.fromFile(Generic.returnPath() + gottenPath));
+                }
+		return Cache.soundCache.get(gottenPath);
+	}
 
 	inline static public function lua(script:String,?library:String){
 		return Generic.returnPath() + getPath('data/$script.lua',TEXT,library);
