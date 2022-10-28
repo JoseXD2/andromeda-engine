@@ -311,7 +311,7 @@ class Paths
 		if(FileSystem.exists(Generic.returnPath() + file)) {
                         lime.app.Application.current.window.alert("it exists ._.", "a");
 			if(!Cache.soundCache.exists(file)) {
-				Cache.soundCache.set(file, Sound.fromFile("./" + Generic.returnPath() + file));
+				Cache.soundCache.set(file, Sound.fromFile(Generic.returnPath() + file));
 			}
 			return Cache.soundCache.get(file);
 		}
@@ -320,7 +320,7 @@ class Paths
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!Cache.soundCache.exists(gottenPath)) {
-			Cache.soundCache.set(gottenPath, Sound.fromFile("./" + Generic.returnPath() + gottenPath));
+			Cache.soundCache.set(gottenPath, Sound.fromFile(gottenPath));
                 }
 		return Cache.soundCache.get(gottenPath);
 	}
